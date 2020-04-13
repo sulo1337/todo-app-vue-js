@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data: () => {
     return {
@@ -83,9 +84,39 @@ export default {
       }
 
       if (!invalidForm) {
-        console.log("Valid");
-        console.log(this.datetime);
+        var today = this.datetime;
+        var date =
+          today.getFullYear() +
+          "-" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate();
+        var time =
+          today.getHours() +
+          ":" +
+          today.getMinutes() +
+          ":" +
+          today.getSeconds();
+        this.todo.deadline = date + "T" + time;
+        this.todo.deadline.trim();
+        (async () => {
+          await this.add();
+          this.$router.go();
+        })();
       }
+    },
+    add: function() {
+      return new Promise((res, rej) => {
+        axios
+          .post("http://10.0.0.156:8080/api/todos", this.todo, {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+          .then(response => {
+            res();
+          });
+      });
     }
   }
 };
@@ -110,7 +141,7 @@ export default {
 
 #modal {
   background-color: #ffebe7;
-  height: 100%;
+  height: 70vh;
   padding: 20px;
   border-radius: 20px;
 }

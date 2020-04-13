@@ -48,6 +48,7 @@ export default {
       //wait store action "fetchTodos" to retrieve data and resolve a Promise
       await this.$store.dispatch("fetchTodos").then(response => {
         this.todos = this.$store.getters.getTodos;
+        this.todos.sort((a, b) => (a.added < b.added ? 1 : -1));
       });
       //set loading to false after a resolved Promise from fetchTodos
       this.isLoading = false;
