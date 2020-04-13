@@ -6,10 +6,13 @@
       :can-cancel="false"
     ></b-loading>
     <div id="content">
-      <p class="title is-2">Hi, Here is a List of Your Todos:</p>
+      <p class="title is-2">
+        Hi, Here is a List of Your Todos:
+      </p>
+      <AddTodo />
       <div v-for="todo in todos" v-bind:key="todo.id">
         <CompleteButton :thistodo="todo" />
-        <ATodo :thistodo="todo" />
+        <ATodo :thistodo="todo" id="atodo" />
       </div>
     </div>
   </div>
@@ -18,11 +21,13 @@
 <script>
 import ATodo from "@/components/ATodo.vue";
 import CompleteButton from "@/components/CompleteButton.vue";
+import AddTodo from "@/components/AddTodo.vue";
 export default {
   name: "ToDo",
   components: {
     ATodo,
-    CompleteButton
+    CompleteButton,
+    AddTodo
   },
   props: {
     msg: String
@@ -30,7 +35,8 @@ export default {
   data: () => {
     return {
       todos: [],
-      isLoading: true
+      isLoading: true,
+      modalActive: false
     };
   },
   created() {
@@ -45,7 +51,8 @@ export default {
       });
       //set loading to false after a resolved Promise from fetchTodos
       this.isLoading = false;
-    }
+    },
+    addTodo() {}
   },
   computed: {}
 };
@@ -53,6 +60,26 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+#atodo {
+  display: inline-block;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  box-shadow: 0px 0px 0px #000000;
+  transition: transform 0.2s ease-in-out;
+  // transition: padding 0.2s ease-in-out;
+}
+
+#atodo:hover {
+  transform: translate(-8px, -8px);
+  box-shadow: 1px 1px 8px #000000;
+  /* padding: 30px; */
+  transition: transform 0.2s ease-in-out;
+  // transition: padding 0.2s ease-in-out;
+  cursor: pointer;
+}
 
 #content{
   background-color: #ffffff;
@@ -64,5 +91,6 @@ export default {
   text-align: left;
   padding: 40px;
 }
+
 
 </style>

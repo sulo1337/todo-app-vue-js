@@ -3,15 +3,43 @@
     id="card"
     v-bind:class="{
       completed: thistodo.completed,
-      notcompleted: !thistodo.completed
+      notcompleted: !thistodo.completed,
+      isClickedComp: this.clicked && thistodo.completed,
+      isClickedNotComp: this.clicked && !thistodo.completed
     }"
     @click="toggleClick"
   >
     <div class="title is-4" v-if="!this.clicked">
       {{ thistodo.title }}
+      <div style="float: right">
+        <img src="@/assets/upwards.png" id="arrowhead" />
+      </div>
     </div>
-    <div class="title is-4" v-if="this.clicked">
-      {{ thistodo.title }} clicked!
+    <div v-if="this.clicked">
+      <div>
+        <p class="title is-2">
+          {{ thistodo.title }}
+        </p>
+        <p class="title is-5">{{ thistodo.description }}</p>
+        <p>
+          <b
+            >Deadline: {{ getDate(thistodo.added) }} at
+            {{ getTime(thistodo.added) }}</b
+          >
+        </p>
+        <p>
+          <b>Created on:</b> {{ getDate(thistodo.added) }} at
+          {{ getTime(thistodo.added) }}
+        </p>
+        <b>Status: </b>
+        <p v-if="thistodo.completed" style="display: inline">Completed</p>
+        <p v-else style="display: inline">Not Completed</p>
+        <br />
+        <div style="display: block">
+          <b-button type="is-primary" style="margin-right: 10px">Edit</b-button>
+          <b-button type="is-danger">Delete</b-button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -32,36 +60,44 @@ export default {
   methods: {
     toggleClick() {
       this.clicked = !this.clicked;
+    },
+    getDate(datetime) {
+      return datetime.slice(0, 10);
+    },
+    getTime(datetime) {
+      return datetime.slice(11, 16);
     }
-  }
+  },
+  computed: {}
 };
 </script>
 
 <style scoped>
-#card {
-  display: inline-block;
-  border-radius: 10px;
-  padding: 20px;
-  width: 90%;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  box-shadow: 0px 0px 0px #000000;
-  transition: transform 0.5s ease-in-out;
-  transition: padding 0.5s ease-in-out;
+#clickedp {
+  text-align: center;
 }
 
-#card:hover {
-  transform: translate(-8px, -8px);
-  box-shadow: 1px 1px 8px #000000;
-  padding: 30px;
-  transition: transform 0.2s ease-in-out;
-  transition: padding 0.2s ease-in-out;
+.isClickedComp {
+  background-color: #73e2a7 !important;
+  text-decoration: none !important;
 }
-.completed {
-  background-color: #73e2a7;
+
+.isClickedNotComp {
+  background-color: #f9627e !important;
 }
 
 .notcompleted {
-  background-color: #f9627d;
+  background-color: #f9627ea2;
+}
+
+.completed {
+  background-color: #73e2a7a2;
+  text-decoration: line-through;
+}
+
+#arrowhead {
+  float: right;
+  width: 8%;
+  height: auto;
 }
 </style>

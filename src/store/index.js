@@ -15,12 +15,16 @@ export default new Vuex.Store({
   },
   actions: {
     //methods
+    //async function also returns a promise
+    //we can do async instead of return new promise
     fetchTodos(context) {
       return new Promise((res, rej) => {
         axios
           .get("http://10.0.0.156:8080/api/todos")
           .then(response => {
             context.commit("UPDATE_TODOS", response.data);
+            //this is important, if data is obtained, then we should resolve this promise
+            //if it is not resolved then promise is not returned and this program is stuck here
             res();
           })
           .catch(() => rej());
