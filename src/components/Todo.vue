@@ -11,6 +11,7 @@
       </p>
       <AddTodo />
       <div v-for="todo in todos" v-bind:key="todo.id">
+        <!-- passes same reference to the todo object -->
         <CompleteButton :thistodo="todo" />
         <ATodo :thistodo="todo" id="atodo" />
       </div>
@@ -66,7 +67,7 @@ export default {
   border-radius: 10px;
   padding: 20px;
   width: 90%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   margin-top: 10px;
   box-shadow: 0px 0px 0px #000000;
   transition: transform 0.2s ease-in-out;
@@ -74,7 +75,7 @@ export default {
 }
 
 #atodo:hover {
-  transform: translate(-8px, -8px);
+  //transform: translate(-8px, -8px);
   box-shadow: 1px 1px 8px #000000;
   /* padding: 30px; */
   transition: transform 0.2s ease-in-out;

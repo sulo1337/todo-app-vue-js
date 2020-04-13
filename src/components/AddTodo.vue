@@ -84,28 +84,27 @@ export default {
       }
 
       if (!invalidForm) {
-        var today = this.datetime;
+        var deadline = this.datetime;
         var date =
-          today.getFullYear() +
+          deadline.getFullYear() +
           "-" +
-          (today.getMonth() + 1) +
+          (deadline.getMonth() + 1) +
           "-" +
-          today.getDate();
+          deadline.getDate();
         var time =
-          today.getHours() +
+          deadline.getHours() +
           ":" +
-          today.getMinutes() +
+          deadline.getMinutes() +
           ":" +
-          today.getSeconds();
+          deadline.getSeconds();
         this.todo.deadline = date + "T" + time;
-        this.todo.deadline.trim();
         (async () => {
-          await this.add();
+          await this.addRequest();
           this.$router.go();
         })();
       }
     },
-    add: function() {
+    addRequest: function() {
       return new Promise((res, rej) => {
         axios
           .post("http://10.0.0.156:8080/api/todos", this.todo, {
