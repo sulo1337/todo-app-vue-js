@@ -18,7 +18,7 @@
   text-align: center;
   color: #000000;
   background-color: #ffebe7;
-  height: 100%;
+  height: 100vh;
 }
 
 #nav {

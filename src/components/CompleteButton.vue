@@ -35,16 +35,18 @@ export default {
       })();
       this.isLoading = false;
     },
-    updateDB: async function() {
-      await axios
-        .put("http://10.0.0.156:8080/api/todos", this.thistodo, {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        .then(response => {
-          //do sth here
-        });
+    updateDB: function() {
+      return new Promise((res, rej) => {
+        axios
+          .put(process.env.VUE_APP_API_URL, this.thistodo, {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+          .then(response => {
+            res();
+          });
+      });
     }
   },
   created() {

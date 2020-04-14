@@ -20,7 +20,7 @@ export default new Vuex.Store({
     fetchTodos(context) {
       return new Promise((res, rej) => {
         axios
-          .get("http://10.0.0.156:8080/api/todos")
+          .get(process.env.VUE_APP_APIURL)
           .then(response => {
             context.commit("UPDATE_TODOS", response.data);
             //this is important, if data is obtained, then we should resolve this promise

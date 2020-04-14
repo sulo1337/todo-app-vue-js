@@ -181,7 +181,7 @@ export default {
     },
     editRequest: async function() {
       await axios
-        .put("http://10.0.0.156:8080/api/todos", this.thistodo, {
+        .put(process.env.VUE_APP_APIURL, this.thistodo, {
           headers: {
             "Content-Type": "application/json"
           }
@@ -197,7 +197,7 @@ export default {
       })();
     },
     deleteRequest: async function() {
-      const url = "http://10.0.0.156:8080/api/todos/" + this.thistodo.id;
+      const url = process.env.VUE_APP_APIURL + this.thistodo.id;
       url.trim();
       await axios.delete(url).then(response => {
         console.log(response);

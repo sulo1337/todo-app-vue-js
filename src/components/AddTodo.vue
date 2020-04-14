@@ -107,7 +107,7 @@ export default {
     addRequest: function() {
       return new Promise((res, rej) => {
         axios
-          .post("http://10.0.0.156:8080/api/todos", this.todo, {
+          .post(process.env.VUE_APP_APIURL, this.todo, {
             headers: {
               "Content-Type": "application/json"
             }
