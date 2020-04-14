@@ -38,7 +38,7 @@ export default {
     updateDB: function() {
       return new Promise((res, rej) => {
         axios
-          .put(process.env.VUE_APP_API_URL, this.thistodo, {
+          .put(process.env.VUE_APP_APIURL, this.thistodo, {
             headers: {
               "Content-Type": "application/json"
             }
